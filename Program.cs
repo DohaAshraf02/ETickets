@@ -1,3 +1,6 @@
+using ETickets.Data;
+using ETickets.Repositories;
+
 namespace ETickets
 {
     public class Program
@@ -5,7 +8,14 @@ namespace ETickets
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddScoped<CategoryRepository>();
+            builder.Services.AddScoped<ActorRepository>();
+            builder.Services.AddScoped<CinemaRepository>();
+            builder.Services.AddScoped<MovieRepository>();
+            builder.Services.AddScoped<ApplicationDbContext>();
 
+            // Register AutoMapper
+            builder.Services.AddAutoMapper(cfg => cfg.AddMaps(typeof(Program).Assembly));
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 

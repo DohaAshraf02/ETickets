@@ -8,7 +8,7 @@
         public string ProfilePicture { get; set; }
         public string Bio { get; set; }
         public string News { get; set; }
-        public List<ActorMovie> ActorMovies { get; set; }
+        public virtual List<ActorMovie>? ActorMovies { get; set; }
 
 
     }

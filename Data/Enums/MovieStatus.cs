@@ -2,8 +2,8 @@
 {
     public enum MovieStatus
     {
-        open,
-        closed,
-        upcoming
+        Available,
+        Expired,
+        UpComing
     }
 }

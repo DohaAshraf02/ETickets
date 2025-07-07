@@ -1,8 +1,56 @@
-﻿@{
+﻿@using ETickets.ViewModels
+@model List<MovieDto>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<div class="container mt-4">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            var isAvailable = item.MovieStatus.ToString().ToLower() == "available";
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="mb-0">@item.Name</h5>
+                    </div>
+                    <div class="card-body d-flex">
+                        <img src="@item.ImgUrl" alt="@item.Name" class="img-fluid rounded" style="width: 200px; height: 300px; object-fit: cover; margin-right: 16px;" />
+                        <div>
+                            <p><strong>Price:</strong> @item.Price.ToString("C")</p>
+                            <p><strong>Cinema:</strong> @item.CinemaName</p>
+                            <p><strong>Start Date:</strong> @item.StartDate.Value.ToShortDateString()</p>
+                            <p><strong>End Date:</strong> @item.EndDate.Value.ToShortDateString()</p>
+                            <p><strong>Category:</strong> @item.CategoryName</p>
+                            <p>
+                                @{
+                                    string status = item.MovieStatus.ToString().ToLower();
+                                    string btnClass = status switch
+                                    {
+                                        "available" => "btn btn-primary btn-sm",
+                                        "upcoming" => "btn btn-secondary btn-sm",
+                                        "expired" => "btn btn-danger btn-sm",
+                                        _ => "btn btn-light btn-sm"
+                                    };
+                                }
+                                <button type="button" class="@btnClass" disabled>@item.MovieStatus</button>
+                            </p>
+                            <div class="mt-3">
+                                <a asp-page="/Movies/Details" asp-route-id="@item.Id" class="btn btn-primary btn-sm me-2">More Details</a>
+                                @if(isAvailable)
+                                {
+                                    <a asp-page="/Movies/Book" asp-route-id="@item.Id" class="btn btn-success btn-sm">Book Ticket</a>
+                                }
+                                else
+                                {
+                                    <a asp-page="/Movies/Book" asp-route-id="@item.Id" class="btn btn-success btn-sm disabled" tabindex="-1" aria-disabled="true" style="pointer-events: none; background-color: #6c757d; border-color: #6c757d; color: #fff;">Book Ticket</a>
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        })
+    </div>

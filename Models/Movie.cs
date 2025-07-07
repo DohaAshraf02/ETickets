@@ -14,10 +14,10 @@ namespace ETickets.Models
         public DateTime? EndDate { get; set; }
         public MovieStatus MovieStatus { get; set; }
         public int CinemaId { get; set; }
-        public Cinema Cinema { get; set; }
+        public virtual Cinema? Cinema { get; set; }
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
-        public List<ActorMovie> ActorMovies { get; set; }
+        public virtual Category? Category { get; set; }
+        public virtual List<ActorMovie>? ActorMovies { get; set; }
 
     }
 }

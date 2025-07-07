@@ -7,6 +7,6 @@
         public string Description { get; set; }
         public string CinemaLogo { get; set; }
         public string Address { get; set; }
-        public List<Movie> Movies { get; set; }
+        public virtual List<Movie>? Movies { get; set; }
     }
 }
